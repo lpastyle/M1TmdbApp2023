@@ -13,6 +13,7 @@ class ApiClient {
       */
    companion object {
        const val TMDBAPI_BASE_URL = "https://api.themoviedb.org/3/"
+        const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w45"
 
        // keep singleton instance
        val instance = Build()
