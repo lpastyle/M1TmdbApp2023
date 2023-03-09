@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         val tmdbapi = ApiClient.instance.create(ITmdbApi::class.java)
 
         val call = tmdbapi.getPopularPerson(TMDB_API_KEY, 1)
