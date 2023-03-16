@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="ScoreGaugeView">
+        <attr name="scoreMax" format="integer" />
+        <attr name="scoreValue" format="float" />
+        <attr name="scoreLabel" format="string" />
+        <attr name="scoreColor" format="color" />
+    </declare-styleable>
+</resources>
