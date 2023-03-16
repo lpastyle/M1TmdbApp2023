@@ -5,7 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.AbsListView
+import android.widget.AbsListView.OnScrollListener
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.example.m1tmdbapp2023.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,6 +37,17 @@ class MainActivity : AppCompatActivity() {
         binding.popularPersonRv.layoutManager = LinearLayoutManager(this)
         personPopularAdapter = PersonPopularAdapter(persons)
         binding.popularPersonRv.adapter = personPopularAdapter
+        binding.popularPersonRv.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == SCROLL_STATE_IDLE && !recyclerView.canScrollVertically(1)) {
+                    if (curPage < totalPages) {
+                        curPage++
+                        loadPage(curPage)
+                    }
+                }
+            }
+        })
 
         loadPage(curPage)
 
@@ -48,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 response: Response<PersonPopularResponse>
             ) {
                 if (response.isSuccessful && response.body() != null) {
+                    Toast.makeText(applicationContext, "Page $page loaded", Toast.LENGTH_SHORT).show()
                     persons.addAll(response.body()?.results!!)
                     totalResults = response.body()!!.totalResults!!
                     totalPages = response.body()!!.totalPages!!
