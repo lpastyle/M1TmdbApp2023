@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         // Init recycler view
         binding.popularPersonRv.setHasFixedSize(true)
         binding.popularPersonRv.layoutManager = LinearLayoutManager(this)
-        personPopularAdapter = PersonPopularAdapter(persons)
+        personPopularAdapter = PersonPopularAdapter(persons, this)
         binding.popularPersonRv.adapter = personPopularAdapter
         binding.popularPersonRv.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
                     totalResults = response.body()!!.totalResults!!
                     totalPages = response.body()!!.totalPages!!
                     personPopularAdapter.notifyDataSetChanged()
+                    personPopularAdapter.setMaxPopularity()
                     binding.totalResultsTv.text = getString(R.string.total_results_text,persons.size, totalResults)
                 } else {
                     Log.e(LOGTAG, "Call to getPopularPerson failed with error ${response.code()}")

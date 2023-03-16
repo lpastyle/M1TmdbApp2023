@@ -2,4 +2,26 @@
     <string name="app_name">M1TmdbApp2023</string>
     <string name="total_results_text">"Showing %1d/%1d persons"</string>
     <string name="total_results_default_text">Nothing to show</string>
+
+    <string-array name="score_rating">
+        <item>POOR</item>
+        <item>FAIR</item>
+        <item>BAD</item>
+        <item>NORMAL</item>
+        <item>GOOD</item>
+        <item>BEST</item>
+    </string-array>
+
+    <!-- array values are resulting from the conversion of hexadecimal colors ffff4331, fffe9c12,
+    fffcd01b, ffc8dd53, ff81c212, ff00b622 in the ARGB space to Android requested signed integer.
+    Used online converter https://www.rapidtables.com/convert/number/hex-to-decimal.html-->
+    <string-array name="rating_colors">
+        <item>-48335</item>
+        <item>-91118</item>
+        <item>-208869</item>
+        <item>-3613357</item>
+        <item>-8273390</item>
+        <item>-16730590</item>
+    </string-array>
+
 </resources>
