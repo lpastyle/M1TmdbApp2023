@@ -67,6 +67,7 @@
         tools:text="Popularity"/>
 
     <com.example.m1tmdbapp2023.ScoreGaugeView
+        style="@style/Widget.Theme.M1TmdbApp2023.ScoreGaugeView"
         android:id="@+id/score_gauge_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
