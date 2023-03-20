@@ -9,7 +9,7 @@ import android.content.Context
 import android.graphics.Color
 import com.example.m1tmdbapp2023.databinding.PersonItemBinding
 
-class PersonPopularAdapter(val persons: ArrayList<Person>, context: Context) : RecyclerView.Adapter<PersonPopularAdapter.PersonItemViewHolder>(){
+class PersonPopularAdapter(private val persons: ArrayList<Person>, context: Context) : RecyclerView.Adapter<PersonPopularAdapter.PersonItemViewHolder>(){
 
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
@@ -30,7 +30,6 @@ class PersonPopularAdapter(val persons: ArrayList<Person>, context: Context) : R
     }
 
     override fun getItemCount() = persons.size
-
 
     override fun onBindViewHolder(holder: PersonItemViewHolder, position: Int) {
         val curItem = persons.get(position)

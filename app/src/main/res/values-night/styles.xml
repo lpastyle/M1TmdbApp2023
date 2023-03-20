@@ -1,7 +1,0 @@
-<resources>
-
-    <style name="Widget.Theme.M1TmdbApp2023.ScoreGaugeView" parent="">
-        <item name="android:background">@color/gray_600</item>
-        <item name="scoreColor">@color/light_blue_600</item>
-    </style>
-</resources>

@@ -22,22 +22,19 @@ class ScoreGaugeView @JvmOverloads constructor(
     // hold XML custom attributes
     private var scoreMax:Int
     private var scoreValue:Float
-    private var scoreLabel:String
+    private var scoreLabel:String?
     private var scoreColor:Int
 
     // Paint styles used for rendering are initialized here to improve performance,
     // since onDraw() is called for every screen refresh.
-    private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL
-        color = Color.DKGRAY
-        textSize = 55.0f
-        typeface = Typeface.create("", Typeface.BOLD)
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        textSize = 50.0f
+        typeface = Typeface.create(null as String?, Typeface.BOLD)
     }
-    private val rectPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     // compute dimensions to be used for drawing text
-    private val fontMetrics = textPaint.fontMetrics
-    private val textHeight = abs(textPaint.fontMetrics.ascent + fontMetrics.descent)
+    private val fontMetrics = paint.fontMetrics
+    private val textHeight = abs(paint.fontMetrics.ascent + fontMetrics.descent)
 
     //  stroke width for rectangles
     private val so = 4f
@@ -45,9 +42,10 @@ class ScoreGaugeView @JvmOverloads constructor(
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ScoreGaugeView)
         scoreMax = typedArray.getInt(R.styleable.ScoreGaugeView_scoreMax, 100)
-        scoreValue = typedArray.getFloat(R.styleable.ScoreGaugeView_scoreValue, 0f)
-        scoreLabel = typedArray.getString(R.styleable.ScoreGaugeView_scoreLabel)                  .toString()
-        scoreColor = typedArray.getColor(R.styleable.ScoreGaugeView_scoreColor, 0)
+        scoreValue = typedArray.getFloat(R.styleable.ScoreGaugeView_scoreValue, 75f)
+        scoreLabel = typedArray.getString(R.styleable.ScoreGaugeView_scoreLabel).toString()
+        if (isInEditMode && scoreLabel.contentEquals("null")) scoreLabel = context.getString(R.string.no_label)
+        scoreColor = typedArray.getColor(R.styleable.ScoreGaugeView_scoreColor, Color.GREEN)
         typedArray.recycle()
     }
 
@@ -74,7 +72,11 @@ class ScoreGaugeView @JvmOverloads constructor(
         }
 
         // set the width and the height of the view
-        setMeasuredDimension(width, height)
+        if (isInEditMode) {
+            setMeasuredDimension(desiredWidth, desiredHeight)
+        } else {
+            setMeasuredDimension(width, height)
+        }
     }
 
     // useless for our need
@@ -83,49 +85,51 @@ class ScoreGaugeView @JvmOverloads constructor(
         Log.d(LOGTAG,"onSizeChanged($w,$h,$oldw,$oldh)")
     }
 
-    override fun onDraw(canvas: Canvas) {
+    override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
         val percent = if (scoreMax > 0) scoreValue / scoreMax else 0f
 
         // Draw gauge main rectangle
-        rectPaint.style= Paint.Style.FILL
-        rectPaint.color=scoreColor
-        canvas.drawRect(
+        paint.style= Paint.Style.FILL
+        paint.color=scoreColor
+        canvas?.drawRect(
             paddingLeft.toFloat(),
             paddingTop.toFloat(),
             (width- paddingRight) * percent,
             height.toFloat() - paddingBottom,
-            rectPaint)
+            paint)
 
         // Draw stroke on main rectangle
-        rectPaint.style= Paint.Style.STROKE
-        rectPaint.strokeWidth = so * 1.5f
-        rectPaint.color= Color.BLACK
-        canvas.drawRect(
+        paint.style= Paint.Style.STROKE
+        paint.strokeWidth = so * 1.5f
+        paint.color= Color.BLACK
+        canvas?.drawRect(
             paddingLeft.toFloat() + so,
             paddingTop.toFloat() + so,
             width.toFloat() - paddingRight - so,
             height.toFloat() - paddingBottom - so,
-            rectPaint)
+            paint)
 
         //val textWidth = textPaint.measureText(scoreLabel)
-        textPaint.textAlign = Paint.Align.LEFT
-        canvas.drawText(
+        paint.color = Color.DKGRAY
+        paint.style = Paint.Style.FILL
+        paint.textAlign = Paint.Align.LEFT
+        canvas?.drawText(
             " $scoreLabel",
             paddingLeft.toFloat(),
             (paddingTop + height - paddingBottom + textHeight) * 0.5f,
-            textPaint)
+            paint)
 
-        textPaint.textAlign = Paint.Align.RIGHT
-        canvas.drawText((100 * percent).toInt().toString() +  "% ",
+        paint.textAlign = Paint.Align.RIGHT
+        canvas?.drawText((100 * percent).toInt().toString() +  "% ",
             width - paddingRight.toFloat(),
             (paddingTop + height - paddingBottom + textHeight) * 0.5f,
-            textPaint)
+            paint)
 
         // debug lines to show canvas footprint
-        //canvas.drawLine(0f,height * 0.5f, width.toFloat(), height * 0.5f, rectPaint)
-        //canvas.drawLine(width * 0.5f, 0f, width*0.5f, height.toFloat(), rectPaint)
+        //canvas?.drawLine(0f,height * 0.5f, width.toFloat(), height * 0.5f, rectPaint)
+        //canvas?.drawLine(width * 0.5f, 0f, width*0.5f, height.toFloat(), rectPaint)
     }
 
     fun updateScore(label:String, color: Int, value:Float, max:Int) {
@@ -170,5 +174,4 @@ class ScoreGaugeView : View {
         typedArray.recycle()
 
     }
-
-    */
+*/

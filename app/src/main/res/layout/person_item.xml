@@ -82,7 +82,8 @@
         app:scoreColor="@android:color/holo_green_light"
         app:scoreLabel="GOOD"
         app:scoreMax="100"
-        app:scoreValue="88" />
+        app:scoreValue="75" />
+
     <FrameLayout
         android:id="@+id/separator_fl"
         android:layout_width="0dp"
