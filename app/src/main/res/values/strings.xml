@@ -8,6 +8,8 @@
     <!-- Notification related strings -->
     <string name="notification_channel_name">Popular persons</string>
     <string name="notification_channel_description">Receive the name and score of the most popular person of the day</string>
+    <string name="notification_title">Most popular person</string>
+    <string name="notification_content">%1$s with a score of %2$f</string>
 
     <string-array name="score_rating">
         <item>POOR</item>
