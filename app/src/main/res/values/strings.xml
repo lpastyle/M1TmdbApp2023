@@ -5,6 +5,10 @@
     <string name="total_results_default_text">Nothing to show</string>
     <string name="no_label">No label !</string>
 
+    <!-- Notification related strings -->
+    <string name="notification_channel_name">Popular persons</string>
+    <string name="notification_channel_description">Receive the name and score of the most popular person of the day</string>
+
     <string-array name="score_rating">
         <item>POOR</item>
         <item>FAIR</item>
