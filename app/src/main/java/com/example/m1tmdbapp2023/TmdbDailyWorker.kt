@@ -20,6 +20,7 @@ class TmdbDailyWorker  (context: Context, params: WorkerParameters) : Worker(con
         val call = tmdbapi.getPopularPerson(TMDB_API_KEY, 1)
         try {
             val response = call.execute()
+            TmdbNotifications.createPopularPersonNotification(applicationContext, response.body()?.results!![0])
             return Result.success()
         } catch (e : IOException) {
             Log.e(LOGTAG,"call to getPopularPerson() failed with ${e.message}")

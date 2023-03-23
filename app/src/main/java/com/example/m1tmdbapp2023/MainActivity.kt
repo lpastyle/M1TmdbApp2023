@@ -107,9 +107,12 @@ class MainActivity : AppCompatActivity() {
                     totalResults = response.body()!!.totalResults!!
                     totalPages = response.body()!!.totalPages!!
                     personPopularAdapter.notifyDataSetChanged()
+
+                    // TODO: uncomment for demo purpose only
+                    /*
                     if (isNotifPermGranted && curPage ==1) {
                         TmdbNotifications.createPopularPersonNotification(applicationContext, response.body()!!.results[0])
-                    }
+                    }*/
                     personPopularAdapter.setMaxPopularity()
                     binding.totalResultsTv.text = getString(R.string.total_results_text,persons.size, totalResults)
                 } else {
@@ -168,7 +171,7 @@ class MainActivity : AppCompatActivity() {
         val currentTime = Calendar.getInstance()
         val scheduledTime = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 16)
-            set(Calendar.MINUTE, 30)
+            set(Calendar.MINUTE, 50)
             if (before(currentTime)) {
                 add(Calendar.DATE, 1)
             }
@@ -185,8 +188,9 @@ class MainActivity : AppCompatActivity() {
         val tmdbWorkRequest = PeriodicWorkRequestBuilder<TmdbDailyWorker>(1, TimeUnit.DAYS)
             .addTag(TMDB_WORK_REQUEST_TAG)
             .setConstraints(constraints)
-            .setInitialDelay(initialDelay,TimeUnit.MILLISECONDS)
+            .setInitialDelay(120000,TimeUnit.MILLISECONDS)
             .build()
+        Log.d(LOGTAG, "initial delay=${initialDelay}")
 
         // enqueue request
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
