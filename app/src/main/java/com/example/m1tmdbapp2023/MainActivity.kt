@@ -170,8 +170,8 @@ class MainActivity : AppCompatActivity() {
         // compute delay between now and wished work request start
         val currentTime = Calendar.getInstance()
         val scheduledTime = Calendar.getInstance().apply {
-            set(Calendar.HOUR_OF_DAY, 16)
-            set(Calendar.MINUTE, 50)
+            set(Calendar.HOUR_OF_DAY, 8)
+            set(Calendar.MINUTE, 0)
             if (before(currentTime)) {
                 add(Calendar.DATE, 1)
             }
@@ -188,14 +188,18 @@ class MainActivity : AppCompatActivity() {
         val tmdbWorkRequest = PeriodicWorkRequestBuilder<TmdbDailyWorker>(1, TimeUnit.DAYS)
             .addTag(TMDB_WORK_REQUEST_TAG)
             .setConstraints(constraints)
-            .setInitialDelay(120000,TimeUnit.MILLISECONDS)
+            .setInitialDelay(initialDelay,TimeUnit.MILLISECONDS)
+            .setBackoffCriteria( // wait 30 mins before retrying
+                BackoffPolicy.LINEAR,
+                1,
+                TimeUnit.HOURS)
             .build()
         Log.d(LOGTAG, "initial delay=${initialDelay}")
 
         // enqueue request
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             TMDB_WORK_REQUEST_TAG,
-            ExistingPeriodicWorkPolicy.UPDATE,
+            ExistingPeriodicWorkPolicy.KEEP,
             tmdbWorkRequest)
     }
 
