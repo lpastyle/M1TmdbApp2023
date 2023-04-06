@@ -69,7 +69,6 @@
         android:id="@+id/social_bar_fcv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:name="com.example.m1tmdbapp2023.SocialBarFragment"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"

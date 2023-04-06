@@ -89,8 +89,6 @@ class MainActivity : AppCompatActivity() {
                 setReorderingAllowed(true)
                 add(R.id.fragmentContainerView, SocialBarFragment())
             }
-
-
         } */
 
 

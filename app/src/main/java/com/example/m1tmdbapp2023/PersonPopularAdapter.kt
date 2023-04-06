@@ -5,20 +5,29 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.m1tmdbapp2023.ApiClient.Companion.IMAGE_BASE_URL
 import com.squareup.picasso.Picasso
-import android.content.Context
 import android.graphics.Color
+import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.fragment.app.commit
+import androidx.fragment.app.commitNow
 import com.example.m1tmdbapp2023.databinding.PersonItemBinding
 
-class PersonPopularAdapter(private val persons: ArrayList<Person>, context: Context) : RecyclerView.Adapter<PersonPopularAdapter.PersonItemViewHolder>(){
-
+class PersonPopularAdapter(private val persons: ArrayList<Person>, private val appCompatActivity: AppCompatActivity) : RecyclerView.Adapter<PersonPopularAdapter.PersonItemViewHolder>(){
+    private val LOGTAG = PersonPopularAdapter::class.simpleName
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
-    class PersonItemViewHolder(var binding: PersonItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class PersonItemViewHolder(var binding: PersonItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.socialBarFcv.id = View.generateViewId()
+        }
+    }
 
     private var maxPopularity:Double = 0.0
-    private val scoreRatings: Array<String> = context.resources.getStringArray(R.array.score_rating)
-    private val ratingColors: Array<String> = context.resources.getStringArray(R.array.rating_colors)
+    private val scoreRatings: Array<String> = appCompatActivity.resources.getStringArray(R.array.score_rating)
+    private val ratingColors: Array<String> = appCompatActivity.resources.getStringArray(R.array.rating_colors)
 
 
     init {
@@ -48,7 +57,34 @@ class PersonPopularAdapter(private val persons: ArrayList<Person>, context: Cont
             curItem.popularity!!.toFloat(),
             maxPopularity.toInt()
         )
+
+        // set social bar fragment container view tag with unique person id
+        holder.binding.socialBarFcv.tag = curItem.id.toString()
+
     }
+
+    override fun onViewAttachedToWindow(holder: PersonItemViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        Log.d(LOGTAG,"fcv_id=${holder.binding.socialBarFcv.id}")
+        val sbfcv = holder.binding.socialBarFcv
+        val bundle = bundleOf(
+            "sbfc_view_tag" to sbfcv.tag
+        )
+        appCompatActivity.supportFragmentManager.commitNow {
+            //add(holder.binding.socialBarFcv.id, SocialBarFragment())
+            add(sbfcv.id, SocialBarFragment::class.java, bundle )
+        }
+
+    }
+
+    override fun onViewDetachedFromWindow(holder: PersonItemViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+       /*  appCompatActivity.supportFragmentManager.commitNow {
+            remove(?)
+        } */
+
+    }
+
 
     fun setMaxPopularity() {
         maxPopularity = 0.0
