@@ -45,15 +45,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+<!-- for demo fragment purpose
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:name="com.example.m1tmdbapp2023.SocialBarFragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_social_bar" />
+        tools:layout="@layout/fragment_social_bar" /> -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
