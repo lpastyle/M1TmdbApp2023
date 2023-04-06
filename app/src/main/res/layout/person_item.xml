@@ -12,8 +12,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="3:4"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,12 +44,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
-        android:textSize="@dimen/person_known_for_text"
         android:textColor="?attr/colorPrimary"
+        android:textSize="@dimen/person_known_for_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/name_tv"
-        tools:text="Known for"/>
+        tools:text="Known for" />
 
     <TextView
         android:id="@+id/popularity_tv"
@@ -64,22 +62,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/known_for_tv"
-        tools:text="Popularity"/>
+        tools:text="Popularity" />
 
-    <com.example.m1tmdbapp2023.ScoreGaugeView
-        style="@style/Widget.Theme.M1TmdbApp2023.ScoreGaugeView"
-        android:id="@+id/score_gauge_view"
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/social_bar_fcv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/score_gauge_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/popularity_tv"
+        tools:layout="@layout/fragment_social_bar" />
+
+    <com.example.m1tmdbapp2023.ScoreGaugeView
+        android:id="@+id/score_gauge_view"
+        style="@style/Widget.Theme.M1TmdbApp2023.ScoreGaugeView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@id/separator_fl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/popularity_tv"
-        app:layout_constraintVertical_bias="0"
         app:scoreColor="@android:color/holo_green_light"
         app:scoreLabel="GOOD"
         app:scoreMax="100"
