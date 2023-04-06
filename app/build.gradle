@@ -55,7 +55,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.8'
 
     // Work Manager
-    implementation'androidx.work:work-runtime-ktx:2.8.0'
+    implementation'androidx.work:work-runtime-ktx:2.8.1'
     //implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Fragments

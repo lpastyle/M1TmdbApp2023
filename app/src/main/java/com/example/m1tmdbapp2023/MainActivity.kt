@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
@@ -69,6 +70,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         createNotificationChannel()
         initWorkManager()
+
+
+        if (savedInstanceState == null) {
+            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+            ft.setReorderingAllowed(true)
+            ft.add(R.id.fragmentContainerView, SocialBarFragment())
+            ft.commit()
+        }
+
 
         // Init recycler view
         binding.popularPersonRv.setHasFixedSize(true)
