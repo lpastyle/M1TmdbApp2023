@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.m1tmdbapp2023.databinding.FragmentSocialBarBinding
+import com.example.m1tmdbapp2023.db.SocialBarDao
+import com.example.m1tmdbapp2023.db.TmdbDatabase
 
 class SocialBarFragment : Fragment() {
 
@@ -22,7 +24,9 @@ class SocialBarFragment : Fragment() {
 
     // Using the activityViewModels() Kotlin property delegate from the
     // fragment-ktx artifact to retrieve the ViewModel in the activity scope
-    private val viewModel by activityViewModels<SocialBarViewModel>()
+    private val viewModel by activityViewModels<SocialBarViewModel>() {
+        SocialBarViewModelFactory(((requireContext() as MainActivity).application as TmdbApplication).socialBarDao)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
