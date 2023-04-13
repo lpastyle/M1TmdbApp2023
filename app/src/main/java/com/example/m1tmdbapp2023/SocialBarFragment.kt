@@ -1,13 +1,12 @@
 package com.example.m1tmdbapp2023
 
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.m1tmdbapp2023.databinding.FragmentSocialBarBinding
 
@@ -29,11 +28,8 @@ class SocialBarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentSocialBarBinding.inflate(inflater)
-        val view = binding.root
-        view.tag = requireArguments().getString("sbfc_view_tag")
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,9 +37,7 @@ class SocialBarFragment : Fragment() {
         cn = getContext()?.getColor(R.color.ic_social_normal)
         cs = getContext()?.getColor(R.color.ic_social_selected)
 
-        Log.d(LOGTAG,"personId=${view.tag}")
-
-        view.tag?.let {
+        requireArguments().getString("sbfc_view_tag").let {
             val mapkey = it.toString().toInt()
             Log.d(LOGTAG,"mk=$mapkey")
 

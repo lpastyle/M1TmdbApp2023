@@ -65,7 +65,7 @@ class PersonPopularAdapter(private val persons: ArrayList<Person>, private val a
 
     override fun onViewAttachedToWindow(holder: PersonItemViewHolder) {
         super.onViewAttachedToWindow(holder)
-        Log.d(LOGTAG,"fcv_id=${holder.binding.socialBarFcv.id}")
+
         val sbfcv = holder.binding.socialBarFcv
         val bundle = bundleOf(
             "sbfc_view_tag" to sbfcv.tag
@@ -79,9 +79,13 @@ class PersonPopularAdapter(private val persons: ArrayList<Person>, private val a
 
     override fun onViewDetachedFromWindow(holder: PersonItemViewHolder) {
         super.onViewDetachedFromWindow(holder)
-       /*  appCompatActivity.supportFragmentManager.commitNow {
-            remove(?)
-        } */
+
+        appCompatActivity.supportFragmentManager.findFragmentById(holder.binding.socialBarFcv.id)?.let {
+            appCompatActivity.supportFragmentManager.commitNow {
+                remove(it)
+            }
+        }
+
 
     }
 
