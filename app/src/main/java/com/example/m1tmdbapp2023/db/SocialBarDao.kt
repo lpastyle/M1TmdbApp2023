@@ -13,5 +13,6 @@ interface SocialBarDao {
     fun getAllLikes(): MutableMap<Int,Int>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(socialBarEntity: SocialBarEntity)
+    //suspend
+    fun insert(socialBarEntity: SocialBarEntity)
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.m1tmdbapp2023.databinding.FragmentSocialBarBinding
 import com.example.m1tmdbapp2023.db.SocialBarDao
+import com.example.m1tmdbapp2023.db.SocialBarEntity
 import com.example.m1tmdbapp2023.db.TmdbDatabase
 
 class SocialBarFragment : Fragment() {
@@ -24,7 +25,7 @@ class SocialBarFragment : Fragment() {
 
     // Using the activityViewModels() Kotlin property delegate from the
     // fragment-ktx artifact to retrieve the ViewModel in the activity scope
-    private val viewModel by activityViewModels<SocialBarViewModel>() {
+    private val viewModel by activityViewModels<SocialBarViewModel> {
         SocialBarViewModelFactory(((requireContext() as MainActivity).application as TmdbApplication).socialBarDao)
     }
 
@@ -47,13 +48,19 @@ class SocialBarFragment : Fragment() {
 
             // set like button
             val nblikes = viewModel.nbLikes.getOrElse(mapkey, {0})
-            binding.nbLikeTv.text =nblikes.toString()
+            binding.nbLikeTv.text = nblikes.toString()
             val likeColor =  if (nblikes > 0 ) cs!! else cn!!
             binding.likeIv.setColorFilter(likeColor)
             binding.nbLikeTv.setTextColor(likeColor)
 
             binding.likeIv.setOnClickListener {
-                viewModel.nbLikes.set(mapkey,viewModel.nbLikes.getOrElse(mapkey, {0}) + 1)
+                var nbLikesNow = viewModel.nbLikes.getOrElse(mapkey, {0})
+                val isFavorite = viewModel.isFavorite.getOrElse(mapkey,{false})
+                nbLikesNow++
+
+                viewModel.nbLikes.set(mapkey,nbLikesNow)
+                viewModel.insert(SocialBarEntity(mapkey, isFavorite, nbLikesNow ))
+
                 binding.nbLikeTv.setText(viewModel.nbLikes[mapkey].toString())
                 binding.likeIv.setColorFilter(cs!!)
                 binding.nbLikeTv.setTextColor(cs!!)
@@ -63,8 +70,13 @@ class SocialBarFragment : Fragment() {
             val isFavorite = viewModel.isFavorite.getOrElse(mapkey,{false})
             binding.favoriteIv.setColorFilter(if (isFavorite) cs!! else cn!!)
             binding.favoriteIv.setOnClickListener {
-                viewModel.isFavorite.set(mapkey, !viewModel.isFavorite.getOrElse(mapkey,{false}))
-                binding.favoriteIv.setColorFilter(if (viewModel.isFavorite[mapkey] == true) cs!! else cn!! )
+                var isFavoriteNow = viewModel.isFavorite.getOrElse(mapkey,{false})
+                val nbLikes = viewModel.nbLikes.getOrElse(mapkey, {0})
+                isFavoriteNow = ! isFavoriteNow
+                viewModel.isFavorite.set(mapkey, isFavoriteNow)
+                viewModel.insert(SocialBarEntity(mapkey,isFavoriteNow,nbLikes))
+
+                binding.favoriteIv.setColorFilter(if (isFavoriteNow) cs!! else cn!! )
             }
 
             // set share button

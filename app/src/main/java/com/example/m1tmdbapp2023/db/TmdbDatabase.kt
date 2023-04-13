@@ -30,7 +30,7 @@ abstract class TmdbDatabase : RoomDatabase() {
                     TmdbDatabase::class.java,
                     "tmdb_database"
                 )
-                    //.allowMainThreadQueries()
+                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 // return instance
