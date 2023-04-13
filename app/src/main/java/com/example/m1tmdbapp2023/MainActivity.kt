@@ -228,7 +228,7 @@ class MainActivity : AppCompatActivity() {
 
     fun showHighScore() {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        val highscore = sharedPref.getInt(getString(R.string.saved_high_score_key), 0)
+        val highscore = sharedPref.getFloat(getString(R.string.saved_high_score_key), 0f)
         Log.w(LOGTAG, "person popular high score = ${highscore}")
     }
 

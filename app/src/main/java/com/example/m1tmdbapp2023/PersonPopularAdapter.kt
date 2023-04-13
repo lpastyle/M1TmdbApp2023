@@ -1,5 +1,6 @@
 package com.example.m1tmdbapp2023
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -93,7 +94,18 @@ class PersonPopularAdapter(private val persons: ArrayList<Person>, private val a
     fun setMaxPopularity() {
         maxPopularity = 0.0
         for (p in persons) {
-            if (p.popularity != null && p.popularity!! > maxPopularity) maxPopularity = p.popularity!!
+            if (p.popularity != null && p.popularity!! > maxPopularity) {
+                maxPopularity = p.popularity!!
+            }
+        }
+
+        val sharedPref = appCompatActivity.getPreferences(Context.MODE_PRIVATE)
+        val highscore = sharedPref.getFloat(appCompatActivity.getString(R.string.saved_high_score_key), 0f)
+        if (maxPopularity > highscore) {
+            with (sharedPref.edit()) {
+                putFloat(appCompatActivity.getString(R.string.saved_high_score_key), maxPopularity.toFloat())
+                apply()
+            }
         }
     }
 
