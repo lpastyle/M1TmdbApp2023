@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         check4NotificationPermission()
+        showHighScore()
         loadPage(curPage)
 
     }
@@ -223,6 +224,12 @@ class MainActivity : AppCompatActivity() {
             TMDB_WORK_REQUEST_TAG,
             ExistingPeriodicWorkPolicy.KEEP,
             tmdbWorkRequest)
+    }
+
+    fun showHighScore() {
+        val sharedPref = getPreferences(Context.MODE_PRIVATE)
+        val highscore = sharedPref.getInt(getString(R.string.saved_high_score_key), 0)
+        Log.w(LOGTAG, "person popular high score = ${highscore}")
     }
 
 }

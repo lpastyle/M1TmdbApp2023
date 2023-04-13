@@ -10,6 +10,7 @@
     <string name="notification_channel_description">Receive the name and score of the most popular person of the day</string>
     <string name="notification_title">Most popular person</string>
     <string name="notification_content">%1$s with a score of %2$f</string>
+    <string name="saved_high_score_key" translatable="false">shared_pref_high_score_key</string>
 
     <string-array name="score_rating">
         <item>POOR</item>
