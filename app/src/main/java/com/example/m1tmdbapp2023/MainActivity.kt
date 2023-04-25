@@ -4,22 +4,19 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.AbsListView
-import android.widget.AbsListView.OnScrollListener
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.app.NotificationCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
@@ -247,6 +244,15 @@ class MainActivity : AppCompatActivity() {
         socialBarViewModel.isFavorite.observe(this) { map ->
             Log.d(LOGTAG, "${map.size} favorites persons")
         }
+    }
+
+    fun showPersonDetail(view: View) {
+        Log.d(LOGTAG,"showPersonDetail()")
+        val intent = Intent()
+        intent.setClass(this, PersonDetailActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.putExtra("extra_person_id", "test-m1")
+        startActivity(intent)
     }
 
 }

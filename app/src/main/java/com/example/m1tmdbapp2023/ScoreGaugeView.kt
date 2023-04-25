@@ -28,7 +28,7 @@ class ScoreGaugeView @JvmOverloads constructor(
     // Paint styles used for rendering are initialized here to improve performance,
     // since onDraw() is called for every screen refresh.
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        textSize = 50.0f
+        textSize = context.resources.getDimension(R.dimen.score_gauge_view_label)
         typeface = Typeface.create(null as String?, Typeface.BOLD)
     }
 
@@ -40,11 +40,11 @@ class ScoreGaugeView @JvmOverloads constructor(
     private val so = 4f
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ScoreGaugeView)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ScoreGaugeView,defStyleAttr,0)
         scoreMax = typedArray.getInt(R.styleable.ScoreGaugeView_scoreMax, 100)
         scoreValue = typedArray.getFloat(R.styleable.ScoreGaugeView_scoreValue, 75f)
-        scoreLabel = typedArray.getString(R.styleable.ScoreGaugeView_scoreLabel).toString()
-        if (isInEditMode && scoreLabel.contentEquals("null")) scoreLabel = context.getString(R.string.no_label)
+        scoreLabel = typedArray.getString(R.styleable.ScoreGaugeView_scoreLabel)
+        if (scoreLabel == null) scoreLabel = if (isInEditMode) context.getString(R.string.no_label) else ""
         scoreColor = typedArray.getColor(R.styleable.ScoreGaugeView_scoreColor, Color.GREEN)
         typedArray.recycle()
     }

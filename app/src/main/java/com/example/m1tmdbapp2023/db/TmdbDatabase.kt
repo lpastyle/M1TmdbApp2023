@@ -7,7 +7,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 // Annotates class to be a Room Database with a table (entity) of the SocialBarEntity class
-@Database(entities = [SocialBarEntity::class], version = 1)
+@Database(entities = [SocialBarEntity::class], version = 1, exportSchema = false)
 abstract class TmdbDatabase : RoomDatabase() {
 
     abstract fun socialBarDao(): SocialBarDao

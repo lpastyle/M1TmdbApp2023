@@ -1,19 +1,17 @@
 package com.example.m1tmdbapp2023
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.example.m1tmdbapp2023.ApiClient.Companion.IMAGE_BASE_URL
-import com.squareup.picasso.Picasso
 import android.graphics.Color
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
+import androidx.recyclerview.widget.RecyclerView
+import com.example.m1tmdbapp2023.ApiClient.Companion.IMAGE_BASE_URL
 import com.example.m1tmdbapp2023.databinding.PersonItemBinding
+import com.squareup.picasso.Picasso
 
 class PersonPopularAdapter(private val persons: ArrayList<Person>, private val appCompatActivity: AppCompatActivity) : RecyclerView.Adapter<PersonPopularAdapter.PersonItemViewHolder>(){
     private val LOGTAG = PersonPopularAdapter::class.simpleName
@@ -35,7 +33,7 @@ class PersonPopularAdapter(private val persons: ArrayList<Person>, private val a
         setMaxPopularity()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonItemViewHolder {
-        val binding = PersonItemBinding.inflate((LayoutInflater.from(parent.context)), parent, false)
+        val binding = PersonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PersonItemViewHolder(binding)
     }
 
