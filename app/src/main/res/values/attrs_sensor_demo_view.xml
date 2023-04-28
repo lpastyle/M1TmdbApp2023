@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="SensorDemoView">
+        <attr name="dialCaption" format="string" />
+        <attr name="dialColor" format="color" />
+    </declare-styleable>
+</resources>
