@@ -6,17 +6,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.m1tmdbapp2023.databinding.SensorItemBinding
 
-class SensorListAdapter(val sensors: ArrayList<Sensor>) : RecyclerView.Adapter<SensorListAdapter.SensorItemViewHolder>(){
+class SensorListAdapter(
+    val sensors: ArrayList<Sensor>,
+    private val sensorItemClickListener: OnSensorItemClickListener) : RecyclerView.Adapter<SensorListAdapter.SensorItemViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): SensorItemViewHolder {
         val binding = SensorItemBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-        return SensorItemViewHolder(binding)
+        return SensorItemViewHolder(binding,sensorItemClickListener)
     }
 
-    override fun onBindViewHolder(holder: SensorListAdapter.SensorItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SensorItemViewHolder, position: Int) {
         holder.binding.sensorItem = sensors[position]
     }
 
@@ -24,8 +26,12 @@ class SensorListAdapter(val sensors: ArrayList<Sensor>) : RecyclerView.Adapter<S
 
     // ------------------ VIEW HOLDER CLASS ----------------------
     class SensorItemViewHolder(
-        val binding: SensorItemBinding
-    )  : RecyclerView.ViewHolder(binding.root) {
-
+        val binding: SensorItemBinding,
+        val sensorItemClickListener: OnSensorItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.sensorItemView.setOnClickListener {
+                sensorItemClickListener.onSensorItemClicked(adapterPosition)
+            }
+        }
     }
 }
