@@ -14,14 +14,23 @@ import com.example.m1tmdbapp2023.ApiClient.Companion.IMAGE_BASE_URL
 import com.example.m1tmdbapp2023.databinding.PersonItemBinding
 import com.squareup.picasso.Picasso
 
-class PersonPopularAdapter(private val persons: ArrayList<Person>, private val appCompatActivity: AppCompatActivity) : RecyclerView.Adapter<PersonPopularAdapter.PersonItemViewHolder>(){
+class PersonPopularAdapter(private val persons: ArrayList<Person>,
+                           private val appCompatActivity: AppCompatActivity,
+                           private val onPersonItemClickListener: OnPersonItemClickListener
+                           ) : RecyclerView.Adapter<PersonPopularAdapter.PersonItemViewHolder>(){
     private val LOGTAG = PersonPopularAdapter::class.simpleName
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
-    class PersonItemViewHolder(var binding: PersonItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class PersonItemViewHolder(
+        var binding: PersonItemBinding,
+        val onPersonItemClickListener: OnPersonItemClickListener
+        ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.socialBarFcv.id = View.generateViewId()
+            binding.itemViewCl.setOnClickListener {
+                onPersonItemClickListener.onPersonItemClicked(adapterPosition)
+            }
         }
     }
 
@@ -35,7 +44,7 @@ class PersonPopularAdapter(private val persons: ArrayList<Person>, private val a
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonItemViewHolder {
         val binding = PersonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PersonItemViewHolder(binding)
+        return PersonItemViewHolder(binding, onPersonItemClickListener)
     }
 
     override fun getItemCount() = persons.size
@@ -61,11 +70,12 @@ class PersonPopularAdapter(private val persons: ArrayList<Person>, private val a
         // set social bar fragment container view tag with unique person id
         holder.binding.socialBarFcv.tag = curItem.id.toString()
 
-        holder.binding.itemViewCl.setOnClickListener {
+       /* demo only : no the best place to set the listener
+       holder.binding.itemViewCl.setOnClickListener {
             val intent = Intent()
             intent.setClass(appCompatActivity,PersonDetailActivity::class.java)
             appCompatActivity.startActivity(intent)
-        }
+        }*/
 
     }
 
