@@ -266,4 +266,12 @@ class MainActivity : AppCompatActivity(), OnPersonItemClickListener{
         startActivity(intent)
     }
 
+    fun showSensorDemo(view: View) {
+        Log.d(LOGTAG,"showSensorDemo()")
+        val intent = Intent()
+        intent.setClass(this, SensorDemoActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(intent)
+    }
+
 }
