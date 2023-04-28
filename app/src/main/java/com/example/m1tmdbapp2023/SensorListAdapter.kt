@@ -17,7 +17,7 @@ class SensorListAdapter(val sensors: ArrayList<Sensor>) : RecyclerView.Adapter<S
     }
 
     override fun onBindViewHolder(holder: SensorListAdapter.SensorItemViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.binding.sensorItem = sensors[position]
     }
 
     override fun getItemCount() = sensors.size
