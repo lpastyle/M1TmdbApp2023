@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit
 const val NOTIFICATION_CHANNEL_ID = "popular_person_notification_channel_id"
 const val TMDB_WORK_REQUEST_TAG = "tmdb-popular-person"
 
-class MainActivity : AppCompatActivity(), OnPersonItemClickListener{
+class MainActivity : AppCompatActivity(), OnPersonItemClickListener {
 
     private val LOGTAG = MainActivity::class.simpleName
 
