@@ -34,6 +34,7 @@
     </string-array>
 
     <!-- Sensor demo -->
+    <string name="sensor_demo_activity_title">Sensor Demo</string>
     <string name="sensor_demo_button">Sensor Demo</string>
     <string name="sensor_list_caption">Sensor list</string>
     <string name="sensor_values_caption">Sensor values</string>
