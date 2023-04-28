@@ -6,4 +6,10 @@
     <dimen name="person_score_text">22sp</dimen>
     <dimen name="score_gauge_view_label">18sp</dimen>
     <dimen name="nb_like_text">18sp</dimen>
+    <dimen name="sensor_view_caption">18sp</dimen>
+    <dimen name="sensor_item_name">18sp</dimen>
+    <dimen name="sensor_item_caption">14sp</dimen>
+    <dimen name="sensor_item_value">16sp</dimen>
+    <dimen name="sensor_demo_caption">16sp</dimen>
+    <dimen name="sensor_demo_values">14sp</dimen>
 </resources>
