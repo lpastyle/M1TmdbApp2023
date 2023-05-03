@@ -15,7 +15,7 @@ class SensorListAdapter(
         viewType: Int
     ): SensorItemViewHolder {
         val binding = SensorItemBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-        return SensorItemViewHolder(binding,sensorItemClickListener)
+        return SensorItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SensorItemViewHolder, position: Int) {
@@ -25,9 +25,9 @@ class SensorListAdapter(
     override fun getItemCount() = sensors.size
 
     // ------------------ VIEW HOLDER CLASS ----------------------
-    class SensorItemViewHolder(
+    inner class SensorItemViewHolder(
         val binding: SensorItemBinding,
-        val sensorItemClickListener: OnSensorItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+       ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.sensorItemView.setOnClickListener {
                 sensorItemClickListener.onSensorItemClicked(adapterPosition)

@@ -119,7 +119,7 @@ class SensorDemoView @JvmOverloads constructor(
         canvas.drawText(
             dialCaption!!,
             cx,
-            textHeight*2,
+            captionHeight,
             paint
         )
     }

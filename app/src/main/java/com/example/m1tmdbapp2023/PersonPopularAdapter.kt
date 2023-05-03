@@ -15,21 +15,19 @@ import com.example.m1tmdbapp2023.databinding.PersonItemBinding
 import com.squareup.picasso.Picasso
 
 class PersonPopularAdapter(private val persons: ArrayList<Person>,
-                           private val appCompatActivity: AppCompatActivity,
-                           private val onPersonItemClickListener: OnPersonItemClickListener
+                           private val appCompatActivity: AppCompatActivity
                            ) : RecyclerView.Adapter<PersonPopularAdapter.PersonItemViewHolder>(){
     private val LOGTAG = PersonPopularAdapter::class.simpleName
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
-    class PersonItemViewHolder(
-        var binding: PersonItemBinding,
-        val onPersonItemClickListener: OnPersonItemClickListener
+    inner class PersonItemViewHolder(
+        var binding: PersonItemBinding
         ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.socialBarFcv.id = View.generateViewId()
             binding.itemViewCl.setOnClickListener {
-                onPersonItemClickListener.onPersonItemClicked(adapterPosition)
+                (appCompatActivity as OnPersonItemClickListener).onPersonItemClicked(adapterPosition)
             }
         }
     }
@@ -44,7 +42,7 @@ class PersonPopularAdapter(private val persons: ArrayList<Person>,
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonItemViewHolder {
         val binding = PersonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PersonItemViewHolder(binding, onPersonItemClickListener)
+        return PersonItemViewHolder(binding)
     }
 
     override fun getItemCount() = persons.size

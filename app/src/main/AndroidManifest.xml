@@ -20,6 +20,7 @@
             android:name=".SensorDemoActivity"
             android:exported="false" />
         <activity
+            android:label="@string/person_detail_activity_title"
             android:name=".PersonDetailActivity"
             android:exported="false" />
         <activity

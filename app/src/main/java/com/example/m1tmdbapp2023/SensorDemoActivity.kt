@@ -35,7 +35,8 @@ class SensorDemoActivity : AppCompatActivity(), SensorEventListener, OnSensorIte
         // get device's available sensors list
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensors.addAll(sensorManager.getSensorList(Sensor.TYPE_ALL))
-        sensorListAdapter.notifyDataSetChanged()
+        // sensorListAdapter.notifyDataSetChanged()
+        sensorListAdapter.notifyItemRangeChanged(0, sensors.size)
         onSensorItemClicked(0)
     }
 
@@ -84,5 +85,22 @@ class SensorDemoActivity : AppCompatActivity(), SensorEventListener, OnSensorIte
         currentSensor?.let {
             sensorManager.unregisterListener(this)
         }
+    }
+
+    // activity life cycle management:
+    // unregister sensors listener to save power
+    override fun onResume() {
+        super.onResume()
+        registerSensorListener()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unRegisterSensorListener()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unRegisterSensorListener()
     }
 }
